@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "669103502336",
+    "project_id": "wallpaper-b05a1",
+    "storage_bucket": "wallpaper-b05a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669103502336:android:705e455ae40d9a7953d4e5",
+        "android_client_info": {
+          "package_name": "com.shatanik.wallpaper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669103502336-i33tdmnui43tqe5mrkgdujpo35mp6qdh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shatanik.wallpaper",
+            "certificate_hash": "844463f6061f39c666e32662d1be4c8668ab38df"
+          }
+        },
+        {
+          "client_id": "669103502336-e93rv9v4kmj12jflufsgn31hvg6oimun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANOGBwW7a3ptNntckCX-pMT0PBoZoPK1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669103502336-e93rv9v4kmj12jflufsgn31hvg6oimun.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
