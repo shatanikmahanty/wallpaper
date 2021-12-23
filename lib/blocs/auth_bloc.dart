@@ -7,6 +7,7 @@ import 'package:wallpaper/views/NavigationPages/home/home_screen.dart';
 import 'package:wallpaper/utils/nav_util.dart';
 import 'package:wallpaper/utils/utils.dart';
 import 'package:wallpaper/views/auth/login.dart';
+import 'package:wallpaper/views/navigation/bottomNavigationScaffold.dart';
 
 class AuthenticationBloc extends ChangeNotifier {
   bool _registrationSuccess = false;
@@ -84,7 +85,7 @@ class AuthenticationBloc extends ChangeNotifier {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const HomePage();
+                return const BottomNavigationScaffold();
               },
             ),
           );
@@ -149,7 +150,7 @@ class AuthenticationBloc extends ChangeNotifier {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const HomePage();
+                return const BottomNavigationScaffold();
               },
             ),
           );
