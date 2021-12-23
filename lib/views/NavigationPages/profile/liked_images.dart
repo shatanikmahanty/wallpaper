@@ -108,6 +108,7 @@ class _LikedImagesState extends State<LikedImages> {
                                 builder: (context) {
                                   return LikedImageDetail(
                                     url: lib.likedImages[index],
+                                    photoId: lib.likedImages[index],
                                   );
                                 },
                               ),

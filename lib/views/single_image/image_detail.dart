@@ -1,15 +1,15 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:unsplash_client/unsplash_client.dart';
 import 'package:wallpaper/blocs/auth_bloc.dart';
-import 'package:http/http.dart' show get;
-import 'package:path_provider/path_provider.dart';
 import 'package:wallpaper/blocs/downlaods_bloc.dart';
 import 'package:wallpaper/blocs/liked_images_bloc.dart';
 import 'package:wallpaper/utils/utils.dart';
+import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 class ImageDetail extends StatefulWidget {
   final Photo photo;
@@ -24,22 +24,6 @@ class _ImageDetailState extends State<ImageDetail> {
   bool moreViewEnabled = false;
 
   DateFormat format = DateFormat('dd MMM yyyy');
-
-  _downloadImage(Uri url, String photoId, String uid, DownloadsBloc db) async {
-    showSnackBar(context, "Download Started");
-    var response = await get(url);
-    var documentDirectory = await getApplicationDocumentsDirectory();
-    var firstPath = documentDirectory.path + "/downloads/$uid";
-    String filePathAndName =
-        documentDirectory.path + '/downloads/$uid/$photoId.png';
-
-    await Directory(firstPath).create(recursive: true);
-    File file2 = File(filePathAndName);
-    file2.writeAsBytesSync(response.bodyBytes);
-
-    showSnackBar(context, "Download Complete");
-    db.listFiles(uid);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,8 +155,8 @@ class _ImageDetailState extends State<ImageDetail> {
                               ),
                             ),
                             onPressed: () {
-                              _downloadImage(widget.photo.urls.regular,
-                                  widget.photo.id, ab.userId, db);
+                              db.downloadImage(widget.photo.urls.regular,
+                                  widget.photo.id, ab.userId, context);
                             },
                             child: const Text(
                               "Download",
@@ -193,7 +177,24 @@ class _ImageDetailState extends State<ImageDetail> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              int location = WallpaperManager
+                                  .HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
+                              String result;
+                              var file = await DefaultCacheManager()
+                                  .getSingleFile(
+                                      widget.photo.urls.regular.toString());
+                              try {
+                                result =
+                                    await WallpaperManager.setWallpaperFromFile(
+                                  file.path,
+                                  location,
+                                );
+                              } on PlatformException {
+                                result = 'Failed to get wallpaper.';
+                              }
+                              showSnackBar(context, result);
+                            },
                             child: const Text(
                               "Apply",
                               style: TextStyle(

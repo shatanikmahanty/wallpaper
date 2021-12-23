@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:wallpaper/utils/utils.dart';
+import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 class DownloadedImageDetail extends StatefulWidget {
   final String filePath;
@@ -90,7 +93,19 @@ class _DownloadedImageDetailState extends State<DownloadedImageDetail> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              int location = WallpaperManager
+                                  .HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
+                              String result;
+                              try {
+                                result =
+                                    await WallpaperManager.setWallpaperFromFile(
+                                        widget.filePath, location);
+                              } on PlatformException {
+                                result = 'Failed to get wallpaper.';
+                              }
+                              showSnackBar(context, result);
+                            },
                             child: const Text(
                               "Apply",
                               style: TextStyle(

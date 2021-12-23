@@ -203,7 +203,7 @@ packages:
     source: hosted
     version: "0.6.0"
   flutter_cache_manager:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
@@ -553,6 +553,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  wallpaper_manager:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "662a892"
+      resolved-ref: "662a89231e743069fdec8fa32e775878346e93ca"
+      url: "https://github.com/shatanikmahanty/wallpaper_manager.git"
+    source: git
+    version: "1.0.10"
   win32:
     dependency: transitive
     description:
