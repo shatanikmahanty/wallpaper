@@ -1,9 +1,10 @@
+import 'dart:io' as io;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper/blocs/auth_bloc.dart';
-import 'package:wallpaper/blocs/downlaods_bloc.dart';
-import 'dart:io' as io;
+import 'package:wallpaper/blocs/downloads_bloc.dart';
 import 'package:wallpaper/utils/nav_util.dart';
 import 'package:wallpaper/views/single_image/downloaded_image_detail.dart';
 
@@ -18,9 +19,8 @@ class _DownloadedImagesState extends State<DownloadedImages> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      AuthenticationBloc ab =
-          Provider.of<AuthenticationBloc>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      AuthenticationBloc ab = Provider.of<AuthenticationBloc>(context, listen: false);
 
       DownloadsBloc db = Provider.of<DownloadsBloc>(context, listen: false);
       await db.listFiles(ab.userId);
@@ -64,9 +64,9 @@ class _DownloadedImagesState extends State<DownloadedImages> {
                 child: CircularProgressIndicator(),
               )
             : db.downloadedImagesPaths.isEmpty
-                ? Center(
+                ? const Center(
                     child: Column(
-                      children: const [
+                      children: [
                         Icon(
                           Icons.cloud_off_sharp,
                           size: 50,
@@ -76,10 +76,7 @@ class _DownloadedImagesState extends State<DownloadedImages> {
                         ),
                         Text(
                           "No downloaded images found",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xff3B4071),
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 20, color: Color(0xff3B4071), fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -88,8 +85,7 @@ class _DownloadedImagesState extends State<DownloadedImages> {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     child: StaggeredGridView.countBuilder(
                       shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 2, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
                       crossAxisCount: 4,
                       itemCount: db.downloadedImagesPaths.length,
                       addAutomaticKeepAlives: true,
@@ -119,8 +115,7 @@ class _DownloadedImagesState extends State<DownloadedImages> {
                           ),
                         );
                       },
-                      staggeredTileBuilder: (int index) =>
-                          StaggeredTile.count(2, index.isEven ? 2 : 1),
+                      staggeredTileBuilder: (int index) => StaggeredTile.count(2, index.isEven ? 2 : 1),
                       mainAxisSpacing: 20.0,
                       crossAxisSpacing: 20.0,
                     ),

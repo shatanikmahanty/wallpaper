@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper/utils/nav_util.dart';
 import 'package:wallpaper/views/auth/login.dart';
 import 'package:wallpaper/views/auth/sign_up.dart';
-import 'package:wallpaper/utils/nav_util.dart';
 
 class FlutterSplash extends StatefulWidget {
   const FlutterSplash({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _FlutterSplashState extends State<FlutterSplash> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Future.delayed(
           const Duration(
             seconds: 1,
@@ -64,11 +64,7 @@ class _FlutterSplashState extends State<FlutterSplash> {
               child: const Text(
                 "Wallpaper",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                    letterSpacing: 1.6,
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.white, fontSize: 40, letterSpacing: 1.6, fontWeight: FontWeight.bold),
               ),
               duration: const Duration(milliseconds: 800),
               top: animationStarted ? 40 : size.height / 2 - 80,
@@ -98,10 +94,7 @@ class _FlutterSplashState extends State<FlutterSplash> {
                     width: size.width - 60,
                     child: const Text(
                       "Explore ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(

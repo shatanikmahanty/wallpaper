@@ -19,10 +19,9 @@ class SingleTopicTabView extends StatefulWidget {
 class _SingleTopicTabViewState extends State<SingleTopicTabView> {
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       UnsplashBloc ub = Provider.of<UnsplashBloc>(context, listen: false);
-      if (ub.photosPerTopic.containsKey(widget.topicId) ||
-          (ub.photosPerTopic[widget.topicId] ?? []).isEmpty) {
+      if (ub.photosPerTopic.containsKey(widget.topicId) || (ub.photosPerTopic[widget.topicId] ?? []).isEmpty) {
         ub.getImageForTopic(widget.topicId);
       }
     });
@@ -44,8 +43,7 @@ class _SingleTopicTabViewState extends State<SingleTopicTabView> {
             : Padding(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                 child: StaggeredGridView.countBuilder(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
                   crossAxisCount: 4,
                   itemCount: ub.photosPerTopic[widget.topicId]?.length,
                   addAutomaticKeepAlives: true,
@@ -74,8 +72,7 @@ class _SingleTopicTabViewState extends State<SingleTopicTabView> {
                       ),
                     );
                   },
-                  staggeredTileBuilder: (int index) =>
-                      StaggeredTile.count(2, index.isEven ? 2 : 1),
+                  staggeredTileBuilder: (int index) => StaggeredTile.count(2, index.isEven ? 2 : 1),
                   mainAxisSpacing: 20.0,
                   crossAxisSpacing: 20.0,
                 ),

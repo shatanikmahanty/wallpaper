@@ -3,15 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper/blocs/auth_bloc.dart';
-import 'package:wallpaper/blocs/downlaods_bloc.dart';
+import 'package:wallpaper/blocs/downloads_bloc.dart';
 import 'package:wallpaper/utils/utils.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 class LikedImageDetail extends StatefulWidget {
   final String url, photoId;
 
-  const LikedImageDetail({Key? key, required this.url, required this.photoId})
-      : super(key: key);
+  const LikedImageDetail({Key? key, required this.url, required this.photoId}) : super(key: key);
 
   @override
   _LikedImageDetailState createState() => _LikedImageDetailState();
@@ -130,14 +129,12 @@ class _LikedImageDetailState extends State<LikedImageDetail> {
                               ),
                             ),
                             onPressed: () async {
-                              int location = WallpaperManager
-                                  .HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
+                              int location =
+                                  WallpaperManager.HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
                               String result;
-                              var file = await DefaultCacheManager()
-                                  .getSingleFile(widget.url);
+                              var file = await DefaultCacheManager().getSingleFile(widget.url);
                               try {
-                                result =
-                                    await WallpaperManager.setWallpaperFromFile(
+                                result = await WallpaperManager.setWallpaperFromFile(
                                   file.path,
                                   location,
                                 );

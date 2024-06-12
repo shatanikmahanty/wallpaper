@@ -1,12 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'package:wallpaper/blocs/auth_bloc.dart';
-import 'package:wallpaper/blocs/downlaods_bloc.dart';
+import 'package:wallpaper/blocs/downloads_bloc.dart';
 import 'package:wallpaper/blocs/liked_images_bloc.dart';
 import 'package:wallpaper/blocs/navigation_bloc.dart';
 import 'package:wallpaper/blocs/unsplash_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:wallpaper/views/login_check.dart';
 
 Future main() async {
@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Wallpaper',
         theme: ThemeData(
+          useMaterial3: false,
           primarySwatch: Colors.blue,
           navigationBarTheme: const NavigationBarThemeData(
             backgroundColor: Colors.transparent,

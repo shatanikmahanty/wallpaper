@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -18,9 +17,8 @@ class LikedImages extends StatefulWidget {
 class _LikedImagesState extends State<LikedImages> {
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      LikedImagesBloc lib =
-          Provider.of<LikedImagesBloc>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      LikedImagesBloc lib = Provider.of<LikedImagesBloc>(context, listen: false);
       if (lib.likedImages.isEmpty) {
         lib.getLikedImages(context.read<AuthenticationBloc>().userId);
       }
@@ -70,9 +68,9 @@ class _LikedImagesState extends State<LikedImages> {
                 child: CircularProgressIndicator(),
               )
             : lib.likedImages.isEmpty
-                ? Center(
+                ? const Center(
                     child: Column(
-                      children: const [
+                      children: [
                         Icon(
                           Icons.cloud_off_sharp,
                           size: 50,
@@ -82,10 +80,7 @@ class _LikedImagesState extends State<LikedImages> {
                         ),
                         Text(
                           "No Liked images found",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xff3B4071),
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 20, color: Color(0xff3B4071), fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -94,8 +89,7 @@ class _LikedImagesState extends State<LikedImages> {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     child: StaggeredGridView.countBuilder(
                       shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 2, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
                       crossAxisCount: 4,
                       itemCount: lib.likedImages.length,
                       addAutomaticKeepAlives: true,
@@ -126,8 +120,7 @@ class _LikedImagesState extends State<LikedImages> {
                           ),
                         );
                       },
-                      staggeredTileBuilder: (int index) =>
-                          StaggeredTile.count(2, index.isEven ? 2 : 1),
+                      staggeredTileBuilder: (int index) => StaggeredTile.count(2, index.isEven ? 2 : 1),
                       mainAxisSpacing: 20.0,
                       crossAxisSpacing: 20.0,
                     ),

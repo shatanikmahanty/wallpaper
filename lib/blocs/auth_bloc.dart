@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallpaper/configs/configs.dart';
-import 'package:wallpaper/views/NavigationPages/home/home_screen.dart';
 import 'package:wallpaper/utils/nav_util.dart';
 import 'package:wallpaper/utils/utils.dart';
 import 'package:wallpaper/views/auth/login.dart';
@@ -125,17 +124,16 @@ class AuthenticationBloc extends ChangeNotifier {
       getUserDataFromFirebase(user).onError((error, stackTrace) {
         showSnackBar(context, 'Unexpected error occurred, please try again');
         _registrationStarted = false;
+        return null;
       }).then((value) async {
         Map<String, dynamic> userMap = {
           "email": value!['email'],
           "uid": value['uid'],
           "userName": value['userName'],
-          "profilePic":
-              value.containsKey('profilePic') ? value['profilePic'] : "",
+          "profilePic": value.containsKey('profilePic') ? value['profilePic'] : "",
         };
 
-        await saveToSharedPreferences(map: userMap)
-            .onError((error, stackTrace) {
+        await saveToSharedPreferences(map: userMap).onError((error, stackTrace) {
           showSnackBar(context, 'Unexpected error occurred, please try again');
           _loginStarted = false;
         }).then((value) async {
@@ -163,8 +161,7 @@ class AuthenticationBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future saveToSharedPreferences(
-      {User? user, Map<String, dynamic>? map}) async {
+  Future saveToSharedPreferences({User? user, Map<String, dynamic>? map}) async {
     if (user != null) {
       _userId = user.uid;
       _email = user.email ?? "";
@@ -185,10 +182,7 @@ class AuthenticationBloc extends ChangeNotifier {
   }
 
   Future saveNewUserDataToFirebase(User user) async {
-    await FirebaseFirestore.instance
-        .collection(Configs.users)
-        .doc(user.uid)
-        .set({
+    await FirebaseFirestore.instance.collection(Configs.users).doc(user.uid).set({
       "uid": user.uid,
       "email": user.email ?? "",
       "userName": (user.email ?? "").split("@")[0],
@@ -196,11 +190,8 @@ class AuthenticationBloc extends ChangeNotifier {
   }
 
   Future<Map<String, dynamic>?> getUserDataFromFirebase(User user) async {
-    DocumentSnapshot<Map<String, dynamic>> docRef = await FirebaseFirestore
-        .instance
-        .collection(Configs.users)
-        .doc(user.uid)
-        .get();
+    DocumentSnapshot<Map<String, dynamic>> docRef =
+        await FirebaseFirestore.instance.collection(Configs.users).doc(user.uid).get();
 
     return docRef.data();
   }
@@ -232,10 +223,7 @@ class AuthenticationBloc extends ChangeNotifier {
   }
 
   Future updateUserName(String name) async {
-    await FirebaseFirestore.instance
-        .collection(Configs.users)
-        .doc(userId)
-        .update({
+    await FirebaseFirestore.instance.collection(Configs.users).doc(userId).update({
       "userName": name,
     });
     _userName = name;

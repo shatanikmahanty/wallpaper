@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:unsplash_client/unsplash_client.dart';
 import 'package:wallpaper/blocs/auth_bloc.dart';
-import 'package:wallpaper/blocs/downlaods_bloc.dart';
+import 'package:wallpaper/blocs/downloads_bloc.dart';
 import 'package:wallpaper/blocs/liked_images_bloc.dart';
 import 'package:wallpaper/utils/utils.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
@@ -117,8 +117,7 @@ class _ImageDetailState extends State<ImageDetail> {
                       height: 25,
                     ),
                     Text(
-                      widget.photo.source!["alt_description"] ??
-                          "No description found",
+                      widget.photo.source!["alt_description"] ?? "No description found",
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
@@ -155,8 +154,7 @@ class _ImageDetailState extends State<ImageDetail> {
                               ),
                             ),
                             onPressed: () {
-                              db.downloadImage(widget.photo.urls.regular,
-                                  widget.photo.id, ab.userId, context);
+                              db.downloadImage(widget.photo.urls.regular, widget.photo.id, ab.userId, context);
                             },
                             child: const Text(
                               "Download",
@@ -178,15 +176,13 @@ class _ImageDetailState extends State<ImageDetail> {
                               ),
                             ),
                             onPressed: () async {
-                              int location = WallpaperManager
-                                  .HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
+                              int location =
+                                  WallpaperManager.HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
                               String result;
-                              var file = await DefaultCacheManager()
-                                  .getSingleFile(
-                                      widget.photo.urls.regular.toString());
+                              var file =
+                                  await DefaultCacheManager().getSingleFile(widget.photo.urls.regular.toString());
                               try {
-                                result =
-                                    await WallpaperManager.setWallpaperFromFile(
+                                result = await WallpaperManager.setWallpaperFromFile(
                                   file.path,
                                   location,
                                 );
@@ -252,8 +248,7 @@ class _ImageDetailState extends State<ImageDetail> {
                       radius: 60,
                       backgroundColor: Colors.white,
                       child: Icon(
-                        lib.likedImages
-                                .contains(widget.photo.urls.regular.toString())
+                        lib.likedImages.contains(widget.photo.urls.regular.toString())
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
                         color: Colors.red,

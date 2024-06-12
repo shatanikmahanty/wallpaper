@@ -18,9 +18,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      Provider.of<UnsplashBloc>(context, listen: false)
-          .getTopics(context, this);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<UnsplashBloc>(context, listen: false).getTopics(context, this);
     });
     super.initState();
   }
@@ -123,11 +122,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(12),
                   child: Text(
                     (ub.topics ?? [])[index].title,
-                    // style: const TextStyle(
-                    //   color: Color(0xffAAAAAA),
-                    //   fontSize: 18,
-                    //   fontWeight: FontWeight.bold,
-                    // ),
                   ),
                 ),
               ),

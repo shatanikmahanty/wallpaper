@@ -16,13 +16,14 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool editModeOn = false;
-  TextEditingController userNameCtrl = TextEditingController();
-  FocusNode userNameNode = FocusNode();
+  final userNameCtrl = TextEditingController();
+  final userNameNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    AuthenticationBloc ab = Provider.of<AuthenticationBloc>(context);
+    final size = MediaQuery.of(context).size;
+    final ab = Provider.of<AuthenticationBloc>(context);
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -118,8 +119,7 @@ class _ProfileState extends State<Profile> {
                           GestureDetector(
                             onTap: () async {
                               if (userNameCtrl.text.isEmpty) {
-                                showSnackBar(
-                                    context, 'Username should not be empty.');
+                                showSnackBar(context, 'Username should not be empty.');
                                 return;
                               }
                               await ab.updateUserName(userNameCtrl.text);
@@ -194,8 +194,8 @@ class _ProfileState extends State<Profile> {
               onTap: () {
                 ab.logOut(context);
               },
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Icon(
                     Icons.logout_outlined,
                     color: Colors.red,
